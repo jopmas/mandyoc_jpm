@@ -387,7 +387,8 @@ The parameter file ``param.txt`` contains the information that is necessary for 
         type: fixed/free :raw-html:`<br />`
         unit: :raw-html:`<br />`
         definition: set the tangential velocity on the right side of the model to be fixed or free
-
+    * back_normal_velocity
+        default:
 #. Temperature boundary conditions
 
     * top_temperature                     
