@@ -79,17 +79,23 @@ radiogenic_component                = off           # set if radiogenic heating 
 top_normal_velocity                 = fixed         # set the normal velocity on the top side of the model to be fixed or free [fixed/free] 
 top_tangential_velocity             = fixed         # set the tangential velocity on the top side of the model to be fixed or free [fixed/free]
 bot_normal_velocity                 = fixed         # set the normal velocity on the bottom side of the model to be fixed or free [fixed/free]
-bot_tangential_velocity             = fixed         # set the tangential velocity on the bot side of the model to be fixed or free [fixed/free]
+bot_tangential_velocity             = fixed         # set the tangential velocity on the bottom side of the model to be fixed or free [fixed/free]
 left_normal_velocity                = fixed         # set the normal velocity on the left side of the model to be fixed or free [fixed/free]
 left_tangential_velocity            = free          # set the tangential velocity on the left side of the model to be fixed or free [fixed/free]
 right_normal_velocity               = fixed         # set the normal velocity on the right side of the model to be fixed or free [fixed/free]
 right_tangential_velocity           = free          # set the tangential velocity on the right side of the model to be fixed or free [fixed/free]
+back_normal_velocity                = fixed         # set the normal velocity on the back side of the model to be fixed or free - only for 3D models [fixed/free]
+back_tangential_velocity            = free          # set the tangential velocity on the back side of the model to be fixed or free - only for 3D models [fixed/free]
+front_normal_velocity               = free          # set the normal velocity on the front side of the model to be fixed or free - only for 3D models [fixed/free]
+front_tangential_velocity           = free          # set the tangential velocity on the front side of the model to be fixed or free - only for 3D models [fixed/free]
 
 # Temperature boundary conditions
 top_temperature                     = fixed         # set temperature on the top side of the model to be fixed or free [fixed/free]
 bot_temperature                     = fixed         # set temperature on the bottom side of the model to be fixed or free [fixed/free]
 left_temperature                    = free          # set temperature on the left side of the model to be fixed or free [fixed/free]
 right_temperature                   = free          # set temperature on the right side of the model to be fixed or free [fixed/free]
+back_temperature                    = free          # set temperature on the back side of the model to be fixed or free - only for 3D models [fixed/free]
+front_temperature                   = free          # set temperature on the front side of the model to be fixed or free - only for 3D models [fixed/free]
 
 rheology_model                      = 0             # flag n. of a pre-defined rheology model to use during simulation
 T_initial                           = 0             # flag n. of a pre-defined temperature model to use during simulation (relevant when <temperature_from_ascii> is False)
