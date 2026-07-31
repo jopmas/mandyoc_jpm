@@ -17,7 +17,9 @@ To build *Mandyoc*, the following requirements are needed:
 
 * PETSc_ (currently tested on version v3.15.5; support until v3.24)
 * gcc
+* gfortran
 * make
+* cmake
 * git (recommended, but not strictly needed)
 
 If you do not already have a PETSc installation, you may need a Fortran compiler.
@@ -91,6 +93,7 @@ Second, **configure the PETSc build** and set up the installation directory.
       --with-cc=gcc \
       --with-cxx=g++ \
       --with-fc=gfortran \
+      --download-cmake \
       --download-fblaslapack \
       --download-mpich \
       --download-mumps \
@@ -177,6 +180,7 @@ section for further details.
     --with-cc=mpicc \
     --with-cxx=mpicxx \
     --with-fc=mpifort \
+    --download-cmake \
     --download-fblaslapack \
     --download-superlu_dist \
     --download-metis \
@@ -189,6 +193,44 @@ section for further details.
     otherwise a conflict or misconfiguration might affect the system finding
     the correct mpi libs to run the software.
 
+*MacOSX-Arm64* Installation
+-----------------------------
+    The following procedure were tested on MacOSX-Arm64 machines with Apple M3 Pro and M4 Pro chips using PETSc
+    3.24.5 version.
+
+    We strongly recomment to install gcc-16, g++-16 and gfortran-16 compilers via homebrew to avoid conflicts
+    with the default Apple Clang compiler.
+
+.. caution::
+    Deactivate any Anaconda environment before proceeding with the installation to avoid conflits with
+    usr/bin/ld and usr/bin/ar folders while compiling.
+
+.. code-block:: bash
+
+    brew install gcc-16
+    brew install g++-16
+    brew install gfortran-16
+
+    #if you are using anaconda, deactivate the environment
+    #before proceeding with the installation
+
+    conda deactivate
+
+    ./configure PETSC_DIR=/path/to/petsc \
+    PETSC_ARCH=arch-v3.24.5-optimized \
+    --with-debugging=0 \
+    --with-cc=/opt/homebrew/bin/gcc-16 \
+    --with-cxx=/opt/homebrew/bin/g++-16 \
+    --with-fc=/opt/homebrew/bin/gfortran-16 \
+    --download-cmake \
+    --download-mpich \
+    --download-fblaslapack \
+    --download-hdf5 \
+    --download-superlu_dist \
+    --download-metis \
+    --download-parmetis \
+    --download-mumps \
+    --download-scalapack
 
 *Mandyoc* Installation
 ----------------------
