@@ -366,7 +366,7 @@ The parameter file ``param.txt`` contains the information that is necessary for 
         default:            :raw-html:`<br />`
         type: fixed/free :raw-html:`<br />`
         unit: :raw-html:`<br />`
-        definition: set the tangential velocity on the bot side of the model to be fixed or free
+        definition: set the tangential velocity on the bottom side of the model to be fixed or free
     * left_normal_velocity                
         default:            :raw-html:`<br />`
         type: fixed/free :raw-html:`<br />`
@@ -388,7 +388,10 @@ The parameter file ``param.txt`` contains the information that is necessary for 
         unit: :raw-html:`<br />`
         definition: set the tangential velocity on the right side of the model to be fixed or free
     * back_normal_velocity
-        default:
+        default:        :raw-html:`<br />`
+        type: fixed/free :raw-html:`<br />`
+        unit: :raw-html:`<br />`
+        definition: set the normal velocity on the back side of the model to be fixed or free
 #. Temperature boundary conditions
 
     * top_temperature                     
