@@ -75,6 +75,7 @@ double calc_visco_ponto(double T,double P, double x, double z,double geoq_ponto,
 	if (e2_inva<1.0E-36) e2_inva=1.0E-36;
 	
 	// Rheology model selection
+	// first type
 	if (rheol==0)	visco_real = visco_ref;
 	else if (rheol==1)
 	{
