@@ -366,7 +366,7 @@ The parameter file ``param.txt`` contains the information that is necessary for 
         default:            :raw-html:`<br />`
         type: fixed/free :raw-html:`<br />`
         unit: :raw-html:`<br />`
-        definition: set the tangential velocity on the bot side of the model to be fixed or free
+        definition: set the tangential velocity on the bottom side of the model to be fixed or free
     * left_normal_velocity                
         default:            :raw-html:`<br />`
         type: fixed/free :raw-html:`<br />`
@@ -387,7 +387,26 @@ The parameter file ``param.txt`` contains the information that is necessary for 
         type: fixed/free :raw-html:`<br />`
         unit: :raw-html:`<br />`
         definition: set the tangential velocity on the right side of the model to be fixed or free
-
+    * back_normal_velocity
+        default:        :raw-html:`<br />`
+        type: fixed/free :raw-html:`<br />`
+        unit: :raw-html:`<br />`
+        definition: set the normal velocity on the back side of the model to be fixed or free - only for 3D models
+    * back_tangential_velocity
+        default:        :raw-html:`<br />`
+        type: fixed/free :raw-html:`<br />`
+        unit: :raw-html:`<br />`
+        definition: set the tangential velocity on the back side of the model to be fixed or free - only for 3D models
+    * front_normal_velocity
+        default:        :raw-html:`<br />`
+        type: fixed/free :raw-html:`<br />`
+        unit: :raw-html:`<br />`
+        definition: set the normal velocity on the front side of the model to be fixed or free - only for 3D models
+    * front_tangential_velocity
+        default:        :raw-html:`<br />`
+        type: fixed/free :raw-html:`<br />`
+        unit: :raw-html:`<br />`
+        definition: set the tangential velocity on the front side of the model to be fixed or free - only for 3D models
 #. Temperature boundary conditions
 
     * top_temperature                     
@@ -410,6 +429,16 @@ The parameter file ``param.txt`` contains the information that is necessary for 
         type: fixed/free :raw-html:`<br />`
         unit: :raw-html:`<br />`
         definition: set temperature on the right side of the model to be fixed or free
+    * back_temperature
+        default:             :raw-html:`<br />`
+        type: fixed/free :raw-html:`<br />`
+        unit: :raw-html:`<br />`
+        definition: set temperature on the back side of the model to be fixed or free - only for 3D models
+    * front_temperature
+        default:             :raw-html:`<br />`
+        type: fixed/free :raw-html:`<br />`
+        unit: :raw-html:`<br />`
+        definition: set temperature on the front side of the model to be fixed or free - only for 3D models
     * rheology_model                      
         default:  :raw-html:`<br />`
         type: integer :raw-html:`<br />`
