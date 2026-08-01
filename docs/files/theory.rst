@@ -3,12 +3,15 @@
 Basic theory
 ============
 
-The *Mandyoc* code simulates thermochemical convection of the Earth's mantle. The following sections explain which equations are being solved by the code and the numerical approach that was used.
+The *Mandyoc* code simulates thermochemical convection of the Earth's mantle. The following sections explain which equations are being solved 
+by the code and the numerical approach that was used.
 
-Basic equations
+Conservation equations
 ---------------
 
-To simulate mantle thermochemical convection, we adopted the formulation for non-Newtonian fluids together with the Boussinesq approximation to solve the following equations of conservation of mass (:eq:`mass-conservation`), momentum (:eq:`momentum-conservation`) and energy (:eq:`energy-conservation`) :cite:`zhong2007`.
+To simulate mantle thermochemical convection, we adopted the formulation for non-Newtonian fluids together with the Boussinesq 
+approximation to solve the following equations of conservation of mass (:eq:`mass-conservation`), momentum (:eq:`momentum-conservation`) 
+and energy (:eq:`energy-conservation`) :cite:`zhong2007`.
 
 .. math:: 
 	:label: mass-conservation
@@ -18,21 +21,26 @@ To simulate mantle thermochemical convection, we adopted the formulation for non
 .. math:: 
 	:label: momentum-conservation
 
-	\sigma_{ij,j}+g_{i}\rho_{0}(1-\alpha(T-T_{0}))=0
+	\sigma_{ij,j}+g\rho\delta_{i3}=0
 
 .. math::
 	:label: energy-conservation
 
-	\frac{\partial T}{\partial t} + u_{i}T_{,i}=\kappa T_{,ii} + \frac{H}{c_p}-\frac{\alpha T g u_{e}}{c_{p}}
+	\frac{\partial T}{\partial t} + u_{i}T_{,i}=(\kappa T_{,i})_{,i} + \frac{H}{c_p}-\frac{\alpha T g u_{3}}{c_{p}}
   
-where :math:`u` is the velocity in the :math:`i` direction, :math:`g` is the gravity acceleration, :math:`\rho_{0}` is the reference rock density at temperature :math:`T_0`, :math:`\alpha` is the coefficient of volumetric expansion, :math:`T` is the temperature, :math:`\kappa` is the thermal diffusivity, :math:`H` is the rate of radiogenic heat per unit of mass, :math:`c_{p}` is the specific heat, :math:`\delta_{ij}` is the Kronecker delta, and :math:`\sigma_{ij}` is the stress tensor:
+where :math:`u` is the velocity in the :math:`i` direction, :math:`g` is the gravity acceleration, :math:`\alpha` is the coefficient of volumetric expansion, :math:`T` is the temperature, :math:`\kappa` is the thermal diffusivity, :math:`H` is the rate of radiogenic heat per unit of mass, :math:`c_{p}` is the specific heat, :math:`\delta_{ij}` is the Kronecker delta, :math:`\rho` is the density, and :math:`\sigma_{ij}` is the stress tensor:
+
+.. math::
+	:label: reference-density
+
+	\rho = \rho_{0}(1- \alpha (T-T_{0}))
 
 .. math::
 	:label: stress-tensor
 
 	\sigma_{ij}=-P\delta_{ij}+\eta (u_{i,j}+u_{j,i})
 
-where :math:`P` is the dynamic pressure and :math:`\eta` is the effective viscosity of the rock.
+where :math:`\rho_{0}` is the reference rock density at temperature :math:`T_0`, :math:`P` is the dynamic pressure and :math:`\eta` is the effective viscosity of the rock.
 
 .. note::
 	For the adopted Einstein notation, repeated indexes in the same term represent summation and indexes after comma are partial derivative to a spatial coordinate.
