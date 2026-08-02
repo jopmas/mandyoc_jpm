@@ -64,19 +64,26 @@ double calc_visco_ponto(double T,double P, double x, double z,double geoq_ponto,
 	double visco_ref = visco_r*visc0_scaled;
 	double visco_real = visc_MIN;
 	double depth = 0.0;
-	if (pressure_in_rheol==0){
+	
+	if (pressure_in_rheol==0)
+	{
 		depth = -(z + h_air);
 		if (depth<0.0) depth=0.0;
 	}
-	if (P<0.0) {P = 0.0;}
-
-	if (pressure_const>=0.0) P = pressure_const;
 	
-	if (e2_inva<1.0E-36) e2_inva=1.0E-36;
+	if (P<0.0) 
+		P = 0.0;
+
+	if (pressure_const>=0.0) 
+		P = pressure_const;
+	
+	if (e2_inva<1.0E-36) 
+		e2_inva=1.0E-36;
 	
 	// Rheology model selection
-	// first type
-	if (rheol==0)	visco_real = visco_ref;
+	
+	if (rheol==0)	
+		visco_real = visco_ref;
 	else if (rheol==1)
 	{
 		double r = 20.0;
