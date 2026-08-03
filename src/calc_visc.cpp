@@ -68,7 +68,8 @@ double calc_visco_ponto(double T,double P, double x, double z,double geoq_ponto,
 	if (pressure_in_rheol==0)
 	{
 		depth = -(z + h_air);
-		if (depth<0.0) depth=0.0;
+		if (depth<0.0) 
+			depth=0.0;
 	}
 	
 	if (P<0.0) 
@@ -82,7 +83,7 @@ double calc_visco_ponto(double T,double P, double x, double z,double geoq_ponto,
 	
 	// Rheology model selection
 	
-	if (rheol==0)	
+	if (rheol==0)	// Homogeneous viscosity throughout whole model
 		visco_real = visco_ref;
 	else if (rheol==1)
 	{
@@ -92,59 +93,66 @@ double calc_visco_ponto(double T,double P, double x, double z,double geoq_ponto,
 		
 		return(geoq_ponto*visco_ref*exp(  Q/(T/Delta_T+G) - Q/(0.5+G)    ));
 	}
-	else if (rheol==2)
+	else if (rheol==2) // Arrhenius
 	{
 		double R = 8.31;     // J/mol/K
 		double E = 120000.0; // J/mol
-		double Tb = Delta_T+273.0;
-		double aux = E*(1.0/(T+273.0)-1.0/Tb)/R;
+		double TK = T+273.
+		double Tb = Delta_T+273.;
+		double aux = E*(1.0/TK-1.0/Tb)/R;
 
 		visco_real = visco_ref*exp(aux);
 	}
-	else if (rheol==3)
+	else if (rheol==3) // Arrhenius (DeltaT = 1300)
 	{
 		double R = 8.31;     // J/mol/K
 		double E = 120000.0; // J/mol
-		double Tb = 1300.0+273.0;
-		double aux = E*(1.0/(T+273.0)-1.0/Tb)/R;
+		double TK = T+273.
+		double Tb = 1300.0+273.;
+		double aux = E*(1.0/TK-1.0/Tb)/R;
 		
 		visco_real = visco_ref*exp(aux);
 	}
-	else if (rheol==4)
+	else if (rheol==4) // Arrhenius
 	{
 		double R = 8.31;     // J/mol/K
 		double E = 120000.0; // J/mol
+		double TK = T+273.
 		double Tb = Delta_T+273.0;
-		double aux = E*(1.0/(T+273.0)-1.0/Tb)/R;
+		double aux = E*(1.0/TK-1.0/Tb)/R;
 		
 		visco_real = visco_ref*exp(aux);
 	}
-	else if (rheol==5)
+	else if (rheol==5) // Arrhenius linearized
 	{
 		double R = 8.31;     // J/mol/K
 		double E = 240000.0; // J/mol
 		double b = 1.0E7;
-		double Tb = Delta_T+273.0;
-		double aux = -(T+273)*E/(R*Tb*Tb);
+		double TK = T+273.
+		double Tb = Delta_T+273.;
+		double aux = -TK*E/(R*Tb*Tb);
 		
 		visco_real = visco_ref*b*exp(aux);
 	}
-	else if (rheol==6)
+	else if (rheol==6) // Arrhenius linearized (R = 8.3144)
 	{
 		double R = 8.3144;     // J/mol/K
 		double E = 240000.0; // J/mol
 		double b = 1.0E7;
+		double TK = T+273.
 		double Tb = Delta_T+273.0;
-		double aux = -(T+273)*E/(R*Tb*Tb);
+		double aux = -TK*E/(R*Tb*Tb);
 		
 		visco_real = visco_ref*b*exp(aux);
 	}
 	else if (rheol==7)
 	{
 		double R = 8.3144;
-		double TK = T+273.0;
+		double TK = T+273.;
 		
 		if (pressure_in_rheol==0)
+			// g = 10          m/s^2
+			// rho = 3300      kg/m^3
 			visco_real = visco_ref*A*exp(-(QE+VE*10.0*3300.*(depth))/(R*TK));
 		else
 			visco_real = visco_ref*A*exp(-(QE+VE*P)/(R*TK));
@@ -155,33 +163,37 @@ double calc_visco_ponto(double T,double P, double x, double z,double geoq_ponto,
 		
 		visco_real = visco_ref*exp(-QE*TK + VE*(-z));
 	}
-	else if (rheol==9)
+	else if (rheol==9) // Karato & Wu (1993)
 	{
 		if (WITH_NON_LINEAR==1)
 		{
 			double R = 8.3144;
 			double TK = T+273.;
 			
+			// dislocation creep
 			if (pressure_in_rheol==0)
+				// g = 10          m/s^2
+				// rho = 3300      kg/m^3
 				visco_real = pow(A,-1./n_exp)*pow(e2_inva,(1.-n_exp)/(n_exp))*exp((QE+VE*10.0*3300.*(depth))/(n_exp*R*TK));
 			else
 				visco_real = pow(A,-1./n_exp)*pow(e2_inva,(1.-n_exp)/(n_exp))*exp((QE+VE*P)/(n_exp*R*TK));
 		}
 	}
-	else if (rheol==10)
+	else if (rheol==10) // Blankenbach (1988) Case 2a
 	{
-		double beta = 6.907755279;
+		double beta = 6.907755279; // Log(1e3)
 		double DT = 1000.0;
 
 		visco_real = visco_ref * exp(-(beta*T/DT));
 	}
-	else if (rheol==19)
+	else if (rheol==19) // Karato & Wu (1993)
 	{
 		if (WITH_NON_LINEAR==1)
 		{
 			double R = 8.3144;
 			double TK = T+273.;
 
+			// dislocation creep
 			visco_real = pow(A,-1./n_exp)*pow(e2_inva,(1.-n_exp)/(n_exp))*exp((QE+VE*P)/(n_exp*R*TK));
 
 			if (n_exp>2.99 && n_exp<3.01)
@@ -224,15 +236,19 @@ double calc_visco_ponto(double T,double P, double x, double z,double geoq_ponto,
 		double tau_yield;
 
 		if (pressure_in_rheol == 0)
+			// g = 10          m/s^2
+			// rho = 3300      kg/m^3
 			tau_yield = c0 * cos(mu) + sin(mu) * 10.0 * 3300.0 * (depth);
 		else
 			tau_yield = c0 * cos(mu) + sin(mu) * P; // Druker-Prager criterion
 		
 		double visco_yield = visc_MAX;
 		
-		if (e2_inva>0) visco_yield = tau_yield/(2*e2_inva);
+		if (e2_inva>0) 
+			visco_yield = tau_yield/(2*e2_inva);
 		
-		if (visco_real>visco_yield) visco_real = visco_yield;
+		if (visco_real>visco_yield) 
+			visco_real = visco_yield;
 
 
 		if (rheol == 70)
@@ -247,8 +263,11 @@ double calc_visco_ponto(double T,double P, double x, double z,double geoq_ponto,
 	//printf("%lf %lg %lg %lg\n",z,P,e2_inva,visco_real);
 	visco_real /=visc0_scaled;
 	
-	if (visco_real>visc_MAX) visco_real=visc_MAX;
-	if (visco_real<visc_MIN) visco_real=visc_MIN;
+	if (visco_real>visc_MAX) 
+		visco_real=visc_MAX;
+		
+	if (visco_real<visc_MIN) 
+		visco_real=visc_MIN;
 
 	double f1 = PetscLogReal(visc_MAX_comp/visc_MIN_comp);
 	double f2 = PetscLogReal(visc_MAX/visc_MIN);
